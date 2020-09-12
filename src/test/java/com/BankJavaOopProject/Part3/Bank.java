@@ -2,20 +2,23 @@ package com.BankJavaOopProject.Part3;
 
 public abstract class Bank { // PARENT SUPER CLASS
 
-	private double currentBalance;
-	private String accountType;
+	// BU OOP yapısı aynı anda tek hesap açma için!!
+
+	private double currentBalance;  // ilk hesap açarken yatırılan para ve hesap kapanasıya paranın tutuldugu yer
+	private String accountType;     // gold saving interest
 	
-	private double depositReturnValue;
-	private double withdrawExpenceValue;
-	private double returnRateValue;
-	private double finalBalance; // bu hesap kapatıldığda güncellenecek
+	private double depositReturnValue;   // para yatırdığındaki gelen ek komisyon miktarı  +++
+	private double withdrawExpenceValue; // para çekmede alına ek masraf gideri  ---
+	private double returnRateValue;      // hesap kapatıldıgın ki kar oranı   1.3  yada 1.2 ada 1.1
+	private double finalBalance; // bu hesap kapatıldığda güncellenecek --> cari hesap
 								 // USER ın mevcut PARASI editlenebilir
 
 	
-	private boolean isAccountClosed= false;
+	private boolean isAccountClosed= false;  // bayrak kontol noktası
 	
 	
 	public Bank(double currentBalance, String accountType) { // constractor
+
 
 		if (currentBalance<0){
 			System.out.println("Balance can not be negative!");
@@ -26,7 +29,7 @@ public abstract class Bank { // PARENT SUPER CLASS
 			this.accountType = accountType.toLowerCase();
 		}
 		System.out.println("Welcome the " + getClass().getSimpleName() +" Bank!! New Account Type: " + accountType + "\n");
-		isAccountClosed = false;
+		isAccountClosed = false;  // sonra
 	}
 
 	
@@ -34,15 +37,18 @@ public abstract class Bank { // PARENT SUPER CLASS
 
 		if (deposit < 0) {
 			System.out.println("Invalid DATA!");
-		} else if (deposit < 2000) {
+		} else {
 			currentBalance += deposit;
-			// setCurrentBalance(getCurrentBalance() + deposit);
-		} else { // 2000 ve üstü para yatırılırsa
-			//currentBalance += deposit + bonus ;
-			currentBalance += deposit + depositReturnValue;
-			
 		}
-
+//		if (deposit < 0) {
+//			System.out.println("Invalid DATA!");
+//		} else if (deposit < 2000) {
+//			currentBalance += deposit;
+//			// setCurrentBalance(getCurrentBalance() + deposit);
+//		} else { // 2000 ve üstü para yatırılırsa
+//			//currentBalance += deposit + bonus ;
+//			currentBalance += (deposit + depositReturnValue);
+//		}
 	}
 	
 	
@@ -52,7 +58,7 @@ public abstract class Bank { // PARENT SUPER CLASS
 		} else if (withdraw < 1000) {
 			currentBalance -= withdraw;
 
-		} else { // 1000 ve üstü para çekilirse
+		} else { // 1000 ve üstü para çekilirse   with>1000
 			//currentBalance += deposit + bonus ;
 			currentBalance -= (withdraw + withdrawExpenceValue);
 
