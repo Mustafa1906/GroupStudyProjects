@@ -4,40 +4,46 @@ public class BankTEST {
 	public static void main(String[] args) {
 		
 		
-		Akbank Talha = new Akbank(2000, "GOLD"); //constractor calistir!!
-		System.out.println(Talha.getCurrentBalance());
+		Akbank Talha_AkHesap = new Akbank(2000, "GOLD"); //constractor calistir!!
+		System.out.println("Current Balance: "+ Talha_AkHesap.getCurrentBalance() + "  //(After open the account)");
 		
-		Talha.deposit(2000);  
+		Talha_AkHesap.deposit(2000);
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After Deposit)");
 		
-		System.out.println(Talha.getCurrentBalance());
+		Talha_AkHesap.withdraw(1000);
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After withdraw)");
 		
-		Talha.withdraw(1000);
+		Talha_AkHesap.closeCurrentAccount();
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After close the account)");
+
 		
-		System.out.println(Talha.getCurrentBalance());
+		System.out.println("****************************************************************************");
+
 		
-		Talha.closeAccount();
+		Talha_AkHesap = new Akbank (Talha_AkHesap.getFinalBalance(), "Saving");  // Aynı bank da yeni SAVING hesabı !
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After opening the new Saving account)");
+
+		Talha_AkHesap.withdraw(500);
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After deposit)");
+
+		Talha_AkHesap.closeCurrentAccount();   // Akbank Talha Saving hesabını kapatalım
+		System.out.println("Current Balance: "+Talha_AkHesap.getCurrentBalance() + "  //(After close the account)");
 		
-		System.out.println("Talha Akbank Gold Final: " + Talha.getFinalBalance());
-		System.out.println(Talha.getCurrentBalance());
-		
-		System.out.println("************************************");
-		
-		
-		Talha = new Akbank (Talha.getFinalBalance(), "Saving");  // yeni saving hesabı
-		
-		System.out.println("Talha Akbank Saving Current: " + Talha.getCurrentBalance());
-		
-		Talha.closeAccount();   // Akbank Talha Saving hesabını kapattım
-		System.out.println("Talha Akbank Saving Final: " + Talha.getFinalBalance());
-		
-		System.out.println("************************************");
-		
-		
-		Karabank TalhaKara = new Karabank (Talha.getFinalBalance(), "interest");  
-		
-		System.out.println("TalhaKarabank Current:" + TalhaKara.getCurrentBalance());
-		
-		System.out.println("TalhaAkbank Current: " + Talha.getCurrentBalance());
+		System.out.println("****************************************************************************");
+
+
+		// KAra bank a Ak bank parasını aktarıp kullanmak için önce AKbank da settlement All account yapmak lazım!!
+		double balance = Talha_AkHesap.settlementAllAccounts();  // Mevcut Eldeki Para !!
+		Karabank Talha_KaraHesap = new Karabank (balance, "interest");
+		System.out.println("Current Balance: "+Talha_KaraHesap.getCurrentBalance() + "  //(After opening new Interest account)");
+
+		Talha_KaraHesap.deposit(1000);
+		System.out.println("Current Balance: "+Talha_KaraHesap.getCurrentBalance() + "  //(After deposit)");
+
+
+		Talha_AkHesap.settlementAllAccounts();
+		Talha_KaraHesap.settlementAllAccounts();
+
 		
 		//System.out.println("TalhaAkbank Final : " + Talha.getFinalBalance());
 		// finalBalance wallet a cevrilip static tutulması lazm.
@@ -46,19 +52,7 @@ public class BankTEST {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		Karabank Fatih = new Karabank(1000, "SAVING");
-		System.out.println(Fatih.getCurrentBalance());
-		
-		//Fatih.deposit(1000);
-		*/
+
 	}
 
 }
